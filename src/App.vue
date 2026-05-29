@@ -19,7 +19,7 @@ const layoutVisible = computed(() => authStore.isAuthenticated && !esLogin.value
     <NavBar />
     <div class="flex flex-1">
       <SideBar />
-      <main class="flex-1 overflow-auto p-6">
+      <main class="flex-1 overflow-auto bg-gradient-to-br from-slate-50 via-white to-primary-50/30 p-6 lg:p-8">
         <RouterView v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <component :is="Component" />
@@ -28,6 +28,7 @@ const layoutVisible = computed(() => authStore.isAuthenticated && !esLogin.value
       </main>
     </div>
   </div>
+  <RouterView v-else />
 </template>
 
 <style scoped>

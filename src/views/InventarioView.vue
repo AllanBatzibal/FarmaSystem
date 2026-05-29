@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import PageHeader from '@/components/PageHeader.vue'
 import { useInventarioStore } from '@/stores/inventarioStore'
 import { getStockStatus, stockBadgeClass, stockLabel } from '@/utils/format'
 
@@ -34,28 +35,21 @@ onMounted(() => store.fetchInventario())
 
 <template>
   <div class="space-y-6">
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <h2 class="text-2xl font-bold text-slate-800">Inventario</h2>
-        <p class="text-sm text-slate-500">Stock actual vs stock mínimo</p>
-      </div>
-      <div class="flex gap-2">
-        <button
-          v-for="f in filtros"
-          :key="f.value"
-          type="button"
-          class="rounded-lg px-3 py-1.5 text-sm font-medium transition"
-          :class="
-            filtro === f.value
-              ? 'bg-primary-600 text-white'
-              : 'bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50'
-          "
-          @click="filtro = f.value"
-        >
-          {{ f.label }}
-        </button>
-      </div>
-    </div>
+    <PageHeader title="Inventario" subtitle="Stock actual vs stock mínimo">
+      <template #actions>
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="f in filtros"
+            :key="f.value"
+            type="button"
+            :class="filtro === f.value ? 'filter-chip-active' : 'filter-chip-inactive'"
+            @click="filtro = f.value"
+          >
+            {{ f.label }}
+          </button>
+        </div>
+      </template>
+    </PageHeader>
 
     <div v-if="store.loading" class="flex justify-center py-20">
       <div

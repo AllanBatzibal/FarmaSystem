@@ -30,7 +30,7 @@ function onBackdropClick(e) {
         @click="onBackdropClick"
       >
         <div
-          class="w-full rounded-xl bg-white shadow-xl"
+          class="w-full rounded-2xl bg-white shadow-xl"
           :class="sizeClass[size] || sizeClass.md"
           role="dialog"
           aria-modal="true"

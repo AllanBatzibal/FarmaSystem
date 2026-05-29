@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import DataTable from '@/components/DataTable.vue'
 import ModalForm from '@/components/ModalForm.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import { useMedicamentoStore } from '@/stores/medicamentoStore'
 import {
   formatQuetzales,
@@ -147,12 +148,8 @@ onMounted(async () => {
 
 <template>
   <div class="space-y-6">
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <h2 class="text-2xl font-bold text-slate-800">Medicamentos</h2>
-        <p class="text-sm text-slate-500">Catálogo y control de stock</p>
-      </div>
-      <div class="flex flex-wrap items-center gap-3">
+    <PageHeader title="Medicamentos" subtitle="Catálogo y control de stock">
+      <template #actions>
         <select v-model="filtroCategoria" class="input-field w-auto min-w-[160px]">
           <option value="">Todas las categorías</option>
           <option v-for="cat in categoriasUnicas" :key="cat" :value="cat">
@@ -160,8 +157,8 @@ onMounted(async () => {
           </option>
         </select>
         <button type="button" class="btn-primary" @click="openCreate">+ Nuevo medicamento</button>
-      </div>
-    </div>
+      </template>
+    </PageHeader>
 
     <DataTable
       v-model:current-page="currentPage"

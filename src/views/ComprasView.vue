@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import DataTable from '@/components/DataTable.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import api from '@/services/api'
 import { useMedicamentoStore } from '@/stores/medicamentoStore'
 import { formatQuetzales, formatDateTime } from '@/utils/format'
@@ -168,24 +169,15 @@ onMounted(async () => {
 
 <template>
   <div class="space-y-8">
-    <div>
-      <h2 class="text-2xl font-bold text-slate-800">Compras</h2>
-      <p class="text-sm text-slate-500">Registrar compras a proveedores</p>
-    </div>
+    <PageHeader title="Compras" subtitle="Registrar compras a proveedores" />
 
     <div class="card space-y-4">
       <h3 class="text-lg font-semibold text-slate-800">Nueva compra</h3>
 
-      <div
-        v-if="formError"
-        class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
-      >
+      <div v-if="formError" class="alert-error">
         {{ formError }}
       </div>
-      <div
-        v-if="successMsg"
-        class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700"
-      >
+      <div v-if="successMsg" class="alert-success">
         {{ successMsg }}
       </div>
 

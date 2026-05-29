@@ -30,16 +30,20 @@ function isActive(path) {
 </script>
 
 <template>
-  <aside class="w-56 shrink-0 border-r border-slate-200 bg-white">
-    <nav class="flex flex-col gap-1 p-4">
+  <aside class="sticky top-16 h-[calc(100vh-4rem)] w-60 shrink-0 overflow-y-auto border-r border-slate-200/80 bg-white">
+    <div class="border-b border-slate-100 px-4 py-4">
+      <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Menú</p>
+      <p class="mt-1 text-sm font-medium text-primary-700">{{ authStore.rol }}</p>
+    </div>
+    <nav class="flex flex-col gap-1 p-3">
       <router-link
         v-for="link in links"
         :key="link.to"
         :to="link.to"
-        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition"
+        class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition"
         :class="
           isActive(link.to)
-            ? 'bg-primary-50 text-primary-800'
+            ? 'bg-primary-600 text-white shadow-sm'
             : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
         "
       >

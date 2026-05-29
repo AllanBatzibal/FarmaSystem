@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.public) {
     if (authStore.isAuthenticated && to.name === 'login') {
-      return next({ name: rutaPorDefecto() })
+      return next({ name: rutaPorDefecto(authStore.rol) })
     }
     return next()
   }
@@ -79,7 +79,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (!puedeAcceder(authStore.rol, to.name)) {
-    return next({ name: rutaPorDefecto() })
+    return next({ name: rutaPorDefecto(authStore.rol) })
   }
 
   next()

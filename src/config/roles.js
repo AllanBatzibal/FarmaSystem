@@ -24,6 +24,6 @@ export function puedeAcceder(rol, routeName) {
   return permitidas.includes(routeName)
 }
 
-export function rutaPorDefecto() {
-  return 'ventas'
+export function rutaPorDefecto(rol) {
+  return RUTAS_POR_ROL[rol]?.[0] || 'ventas'
 }

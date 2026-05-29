@@ -55,7 +55,7 @@ function nextPage() {
 </script>
 
 <template>
-  <div class="overflow-hidden rounded-xl border border-slate-200 bg-white">
+  <div class="table-card">
     <div v-if="loading" class="flex items-center justify-center py-16">
       <div
         class="h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary-600"

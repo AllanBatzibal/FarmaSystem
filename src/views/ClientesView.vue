@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import DataTable from '@/components/DataTable.vue'
 import ModalForm from '@/components/ModalForm.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import { useClienteStore } from '@/stores/clienteStore'
 
 const store = useClienteStore()
@@ -108,18 +109,13 @@ onMounted(() => store.fetchClientes())
 
 <template>
   <div class="space-y-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h2 class="text-2xl font-bold text-slate-800">Clientes</h2>
-        <p class="text-sm text-slate-500">Gestión de clientes registrados</p>
-      </div>
-      <button type="button" class="btn-primary" @click="openCreate">+ Nuevo cliente</button>
-    </div>
+    <PageHeader title="Clientes" subtitle="Gestión de clientes registrados">
+      <template #actions>
+        <button type="button" class="btn-primary" @click="openCreate">+ Nuevo cliente</button>
+      </template>
+    </PageHeader>
 
-    <div
-      v-if="store.error"
-      class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
-    >
+    <div v-if="store.error" class="alert-error">
       {{ store.error }}
     </div>
 

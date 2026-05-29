@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import DataTable from '@/components/DataTable.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import StockAlertCard from '@/components/StockAlertCard.vue'
 import { useClienteStore } from '@/stores/clienteStore'
 import { useMedicamentoStore } from '@/stores/medicamentoStore'
@@ -80,15 +81,9 @@ function cardValue(key) {
 
 <template>
   <div class="space-y-6">
-    <div>
-      <h2 class="text-2xl font-bold text-slate-800">Dashboard</h2>
-      <p class="text-sm text-slate-500">Resumen general del sistema</p>
-    </div>
+    <PageHeader title="Dashboard" subtitle="Resumen general del sistema" />
 
-    <div
-      v-if="error"
-      class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
-    >
+    <div v-if="error" class="alert-error">
       {{ error }}
     </div>
 

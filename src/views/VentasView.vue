@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import DataTable from '@/components/DataTable.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import { useVentaStore } from '@/stores/ventaStore'
 import { useClienteStore } from '@/stores/clienteStore'
 import { useMedicamentoStore } from '@/stores/medicamentoStore'
@@ -179,9 +180,12 @@ onMounted(async () => {
 
 <template>
   <div class="space-y-8">
-    <div>
-      <h2 class="text-2xl font-bold text-slate-800">Ventas</h2>
-      <p class="text-sm text-slate-500">Registrar ventas y consultar historial</p>
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Ventas</h2>
+        <p class="page-subtitle">Registrar ventas y consultar historial</p>
+      </div>
+      <span class="badge-info">{{ authStore.nombreCompleto }} · {{ authStore.rol }}</span>
     </div>
 
     <div class="card space-y-4">

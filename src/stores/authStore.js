@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import api from '@/services/api'
+import { authService } from '@/services/authService'
 import { puedeAcceder, rutaPorDefecto } from '@/config/roles'
 
 const STORAGE_KEY = 'farmasystem_auth'
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
   )
 
   async function login(usuario, contrasena) {
-    const { data } = await api.post('/auth/login', { usuario, contrasena })
+    const { data } = await authService.login(usuario, contrasena)
     token.value = data.token
     user.value = {
       idEmpleado: data.idEmpleado,

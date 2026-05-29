@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import DataTable from '@/components/DataTable.vue'
 import ModalForm from '@/components/ModalForm.vue'
+import PageHeader from '@/components/PageHeader.vue'
 import api from '@/services/api'
 
 const empleados = ref([])
@@ -132,18 +133,13 @@ onMounted(fetchEmpleados)
 
 <template>
   <div class="space-y-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h2 class="text-2xl font-bold text-slate-800">Empleados</h2>
-        <p class="text-sm text-slate-500">Personal de la farmacia</p>
-      </div>
-      <button type="button" class="btn-primary" @click="openCreate">+ Nuevo empleado</button>
-    </div>
+    <PageHeader title="Empleados" subtitle="Personal de la farmacia">
+      <template #actions>
+        <button type="button" class="btn-primary" @click="openCreate">+ Nuevo empleado</button>
+      </template>
+    </PageHeader>
 
-    <div
-      v-if="error"
-      class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
-    >
+    <div v-if="error" class="alert-error">
       {{ error }}
     </div>
 

@@ -12,6 +12,29 @@ const api = axios.create({
   timeout: 30000,
 })
 
+function buildErrorMessage(error) {
+  const url = `${error.config?.baseURL || baseURL}${error.config?.url || ''}`
+
+  if (!error.response) {
+    return `No se pudo conectar con la API en ${baseURL}. Inicie el backend: cd FarmaSystem.API && dotnet run`
+  }
+
+  const status = error.response.status
+  const data = error.response.data
+
+  if (status === 404) {
+    return `Endpoint no encontrado (${url}). Reinicie la API con "dotnet run" para cargar la versión actual.`
+  }
+  if (status === 401) {
+    return data?.message || 'Usuario o contraseña incorrectos.'
+  }
+  if (status === 500) {
+    return data?.message || data?.error || 'Error interno del servidor.'
+  }
+
+  return data?.message || data?.error || data?.title || error.message || 'Error en la solicitud'
+}
+
 api.interceptors.request.use((config) => {
   try {
     const raw = localStorage.getItem('farmasystem_auth')
@@ -28,22 +51,18 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const isNetwork = !error.response
     if (error.response?.status === 401 && !error.config?.url?.includes('/auth/login')) {
       localStorage.removeItem('farmasystem_auth')
       if (window.location.pathname !== '/login') {
         window.location.href = '/login'
       }
     }
-    const message = isNetwork
-      ? `No se pudo conectar con la API (${baseURL}). ¿Está ejecutándose el backend?`
-      : error.response?.data?.message ||
-        error.response?.data?.error ||
-        error.message
 
-    console.error('Error API:', isNetwork ? message : error.response?.data || error.message)
-    return Promise.reject(new Error(typeof message === 'string' ? message : 'Error en la solicitud'))
+    const message = buildErrorMessage(error)
+    console.error('Error API:', message)
+    return Promise.reject(new Error(message))
   }
 )
 
 export default api
+export { baseURL }
