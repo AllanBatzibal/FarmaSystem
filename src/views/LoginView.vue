@@ -14,12 +14,6 @@ const error = ref(null)
 const loading = ref(false)
 const apiStatus = ref({ checking: true, ok: false, db: false, message: '' })
 
-const demoUsers = [
-  { usuario: 'admin', contrasena: 'admin123', rol: 'Administrador', icon: '👑' },
-  { usuario: 'vendedor', contrasena: 'vendedor123', rol: 'Vendedor', icon: '🛒' },
-  { usuario: 'inventario', contrasena: 'inventario123', rol: 'Inventario', icon: '📦' },
-]
-
 async function verificarApi() {
   apiStatus.value.checking = true
   try {
@@ -180,25 +174,6 @@ onMounted(verificarApi)
             {{ loading ? 'Ingresando...' : 'Entrar al sistema' }}
           </button>
         </form>
-
-        <div class="mt-6">
-          <p class="mb-3 text-center text-xs font-medium uppercase tracking-wide text-slate-400">
-            Acceso rápido de prueba
-          </p>
-          <div class="grid gap-2 sm:grid-cols-3">
-            <button
-              v-for="user in demoUsers"
-              :key="user.usuario"
-              type="button"
-              class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-center text-xs transition hover:border-primary-300 hover:bg-primary-50"
-              @click="usarDemo(user)"
-            >
-              <span class="text-lg">{{ user.icon }}</span>
-              <p class="mt-1 font-semibold text-slate-800">{{ user.usuario }}</p>
-              <p class="text-slate-500">{{ user.rol }}</p>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
